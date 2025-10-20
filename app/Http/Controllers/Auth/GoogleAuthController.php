@@ -35,7 +35,6 @@ class GoogleAuthController extends Controller
             $user = User::query()->create([
                 'name' => $googleUser->getName(),
                 'email' => $googleUser->getEmail(),
-                'username' => $this->generateUniqueUsername($googleUser->getEmail()),
                 'email_verified_at' => now(),
                 'password' => bcrypt(Str::random(32)),
             ]);
@@ -48,20 +47,5 @@ class GoogleAuthController extends Controller
         Auth::login($user, remember: true);
 
         return redirect()->intended(route('home'));
-    }
-
-    private function generateUniqueUsername(string $email): string
-    {
-        $baseUsername = Str::before($email, '@');
-        $baseUsername = Str::slug($baseUsername, separator: '');
-        $username = $baseUsername;
-        $counter = 1;
-
-        while (User::query()->where('username', $username)->exists()) {
-            $username = $baseUsername.$counter;
-            $counter++;
-        }
-
-        return $username;
     }
 }
