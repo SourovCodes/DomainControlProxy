@@ -1,9 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import MainLayout from '@/layouts/main-layout';
-import { Head, Link } from '@inertiajs/react';
+import { SharedData } from '@/types';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Login() {
+    const { name } = usePage<SharedData>().props;
+
     return (
         <MainLayout>
             <Head title="Sign In" />
@@ -14,7 +17,7 @@ export default function Login() {
                         {/* Logo/Title Section */}
                         <div className="mb-8 text-center">
                             <h1 className="mb-2 text-3xl font-bold text-slate-900 dark:text-white">
-                                Welcome to <span className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">DIUQBank</span>
+                                Welcome to <span className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">{name}</span>
                             </h1>
                             <p className="text-sm text-slate-600 dark:text-slate-400">Sign in to access your account</p>
                         </div>
