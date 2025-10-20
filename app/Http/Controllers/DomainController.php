@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateNameserversRequest;
 use App\Models\Domain;
+use App\Notifications\NameserverChanged;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -51,7 +53,39 @@ class DomainController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        // Capture old nameservers before update
+        $oldNameservers = [
+            'nameserver_1' => $domain->nameserver_1,
+            'nameserver_2' => $domain->nameserver_2,
+            'nameserver_3' => $domain->nameserver_3,
+            'nameserver_4' => $domain->nameserver_4,
+        ];
+
+        // Update the domain
         $domain->update($request->validated());
+
+        // Capture new nameservers after update
+        $newNameservers = [
+            'nameserver_1' => $domain->nameserver_1,
+            'nameserver_2' => $domain->nameserver_2,
+            'nameserver_3' => $domain->nameserver_3,
+            'nameserver_4' => $domain->nameserver_4,
+        ];
+
+        // Check if any nameserver has changed
+        $hasChanged = false;
+        foreach ($oldNameservers as $key => $oldValue) {
+            if ($oldValue !== $newNameservers[$key]) {
+                $hasChanged = true;
+                break;
+            }
+        }
+
+        // Send notification if nameservers changed
+        if ($hasChanged) {
+            Notification::route('mail', 'sourovcodes@gmail.com')
+                ->notify(new NameserverChanged($domain, $oldNameservers, $newNameservers));
+        }
 
         return redirect()->route('domains.index')->with('success', 'Nameservers updated successfully.');
     }
