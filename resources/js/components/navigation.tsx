@@ -1,11 +1,16 @@
 import { SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { Button } from './ui/button';
 
 export default function Navigation() {
-    const { name } = usePage<SharedData>().props;
+    const { name, auth } = usePage<SharedData>().props;
+
+    const handleLogout = () => {
+        router.post('/logout');
+    };
 
     return (
-        <nav className="border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 dark:border-slate-800">
+        <nav className="border-b bg-white/80 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/80">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
@@ -13,20 +18,45 @@ export default function Navigation() {
                             {name}
                         </Link>
                     </div>
-                    
+
                     <div className="flex items-center gap-6">
-                        <Link 
-                            href="/" 
-                            className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-                        >
+                        <Link href="/" className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
                             Home
                         </Link>
-                        <Link 
-                            href="/contact" 
-                            className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-                        >
-                            Contact
-                        </Link>
+                        {auth.user ? (
+                            <>
+                                <Link
+                                    href="/domains"
+                                    className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                                >
+                                    Domains
+                                </Link>
+                                <Link
+                                    href="/contact"
+                                    className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                                >
+                                    Contact
+                                </Link>
+                                <Button onClick={handleLogout} variant="outline" size="sm">
+                                    Logout
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/contact"
+                                    className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                                >
+                                    Contact
+                                </Link>
+                                <Link
+                                    href="/login"
+                                    className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                                >
+                                    Login
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
