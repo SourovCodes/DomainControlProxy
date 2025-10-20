@@ -1,13 +1,16 @@
-import { Link } from '@inertiajs/react';
+import { SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 
 export default function Navigation() {
+    const { name } = usePage<SharedData>().props;
+
     return (
         <nav className="border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 dark:border-slate-800">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
                         <Link href="/" className="text-xl font-bold text-slate-900 dark:text-white">
-                            DomainControlProxy
+                            {name}
                         </Link>
                     </div>
                     
@@ -17,12 +20,6 @@ export default function Navigation() {
                             className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
                         >
                             Home
-                        </Link>
-                        <Link 
-                            href="/about" 
-                            className="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-                        >
-                            About
                         </Link>
                         <Link 
                             href="/contact" 

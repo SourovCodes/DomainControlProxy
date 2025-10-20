@@ -7,6 +7,10 @@ Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
 
+Route::get('/contact', function () {
+    return Inertia::render('contact');
+})->name('contact');
+
 Route::get('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login')->middleware(['guest']);
 Route::post('/logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout')->middleware(['auth']);
 Route::get('/auth/google', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'redirect'])->name('auth.google')->middleware(['guest']);
