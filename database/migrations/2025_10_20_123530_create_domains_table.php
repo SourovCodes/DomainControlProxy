@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('domain_name')->unique();
             $table->date('registration_date');
             $table->date('next_due_date');
             $table->decimal('recurring_amount', 10, 2);

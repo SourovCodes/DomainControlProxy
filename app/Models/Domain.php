@@ -17,6 +17,7 @@ class Domain extends Model
      */
     protected $fillable = [
         'user_id',
+        'domain_name',
         'registration_date',
         'next_due_date',
         'recurring_amount',
