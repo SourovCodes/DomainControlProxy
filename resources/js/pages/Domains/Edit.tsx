@@ -45,37 +45,24 @@ export default function DomainEdit() {
         <MainLayout>
             <Head title={`Edit ${domain.domain_name}`} />
 
-            {/* Header Section */}
-            <section className="pt-20 pb-16">
-                <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                    {/* Back Button */}
-                    <div className="mb-6">
-                        <Button asChild variant="outline" size="sm">
-                            <Link href="/domains">
-                                <ArrowLeft className="mr-2 h-4 w-4" />
-                                Back to Domains
-                            </Link>
-                        </Button>
-                    </div>
-
-                    <div className="text-center">
-                        <h1 className="mb-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
-                            Edit{' '}
-                            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent dark:from-blue-400 dark:to-cyan-300">
-                                Domain
-                            </span>
-                        </h1>
-                        <div className="mx-auto mb-6 h-1 w-20 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300"></div>
-                        <p className="mx-auto max-w-2xl text-lg text-slate-600 dark:text-slate-400">Update nameservers for {domain.domain_name}</p>
-                    </div>
+            <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+                {/* Back Button */}
+                <div className="mb-6">
+                    <Button asChild variant="outline" size="sm">
+                        <Link href="/domains">
+                            <ArrowLeft className="mr-2 h-4 w-4" />
+                            Back to Domains
+                        </Link>
+                    </Button>
                 </div>
-            </section>
 
-            {/* Content Section */}
-            <section className="pb-16">
-                <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                    {/* Domain Info Card */}
-                    <Card className="mb-6 overflow-hidden border border-slate-200 bg-white shadow-md dark:border-slate-700 dark:bg-slate-800">
+                <div className="mb-6">
+                    <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Edit Domain</h1>
+                    <p className="text-slate-600 dark:text-slate-400">Update nameservers for {domain.domain_name}</p>
+                </div>
+
+                {/* Domain Info Card */}
+                <Card className="mb-6 overflow-hidden border border-slate-200 bg-white shadow-md dark:border-slate-700 dark:bg-slate-800">
                         <CardHeader>
                             <CardTitle>Domain Information</CardTitle>
                             <CardDescription>Read-only domain details</CardDescription>
@@ -196,8 +183,7 @@ export default function DomainEdit() {
                             </form>
                         </CardContent>
                     </Card>
-                </div>
-            </section>
+            </div>
         </MainLayout>
     );
 }
