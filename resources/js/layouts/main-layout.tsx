@@ -36,10 +36,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <div className="absolute top-10 right-20 h-32 w-32 rounded-full bg-cyan-200/50 dark:bg-cyan-800/20" />
                 <div className="absolute right-0 bottom-0 h-40 w-52 rounded-full bg-violet-200/40 dark:bg-violet-900/20" />
             </div>
-            <Navigation />
 
-            {children}
-            <Footer />
+            <div className="flex min-h-screen flex-col">
+                <Navigation />
+
+                <main className="flex-1">{children}</main>
+
+                <Footer />
+            </div>
 
             <Toaster position="top-right" expand={true} richColors closeButton />
         </>
